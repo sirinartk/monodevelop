@@ -485,13 +485,10 @@ namespace MonoDevelop.DesignerSupport.Toolbox
 			Runtime.AssertMainThread ();
 			
 			if (toolboxService.Initializing) {
-				toolboxWidget.CustomMessage = GettextCatalog.GetString ("Initializing...");
 				return;
 			}
 			
 			ConfigureToolbar ();
-
-			toolboxWidget.CustomMessage = null;
 
 			toolboxWidget.ClearImageCache ();
 
@@ -509,10 +506,6 @@ namespace MonoDevelop.DesignerSupport.Toolbox
 
 			compactModeToggleButton.Hidden = !toolboxWidget.CanIconizeToolboxCategories;
 			compactModeToggleButton.InvalidateIntrinsicContentSize ();
-		
-			if (categories.Count == 0) {
-				toolboxWidget.CustomMessage = GettextCatalog.GetString ("There are no tools available for the current document.");
-			}
 		}
 			
 		void ConfigureToolbar ()

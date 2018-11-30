@@ -58,10 +58,10 @@ namespace MonoDevelop.DesignerSupport.Toolbox
 		public event EventHandler<CGPoint> MenuOpened;
 		public event EventHandler SelectedItemChanged;
 		public event EventHandler ActivateSelectedItem;
+
 		public Action<NSEvent> MouseDownActivated { get; set; }
 
 		IPadWindow container;
-		NSTextField messageTextField;
 		MacToolboxWidgetDataSource dataSource;
 
 		bool listMode;
@@ -96,19 +96,6 @@ namespace MonoDevelop.DesignerSupport.Toolbox
 					return null;
 				}
 				return CategoryVisibilities [(int)selectedIndexPath.Section].Items [(int)selectedIndexPath.Item];
-			}
-		}
-
-		public string CustomMessage {
-			get => messageTextField.StringValue;
-			set {
-				if (string.IsNullOrEmpty (value)) {
-					messageTextField.StringValue = "";
-					messageTextField.Hidden = true;
-				} else {
-					messageTextField.StringValue = value;
-					messageTextField.Hidden = false;
-				}
 			}
 		}
 
@@ -210,11 +197,6 @@ namespace MonoDevelop.DesignerSupport.Toolbox
 			collectionViewDelegate.SelectionChanged += CollectionViewDelegate_SelectionChanged;
 
 			var fontSmall = NativeViewHelper.GetSystemFont (false, (int)NSFont.SmallSystemFontSize);
-			messageTextField = NativeViewHelper.CreateLabel ("", NSTextAlignment.Center, fontSmall);
-			messageTextField.LineBreakMode = NSLineBreakMode.ByWordWrapping;
-			messageTextField.SetContentCompressionResistancePriority (250, NSLayoutConstraintOrientation.Horizontal);
-			AddSubview (messageTextField);
-
 			BackgroundColors = new NSColor [] { Styles.ToolbarBackgroundColor };
 		}
 
@@ -249,8 +231,6 @@ namespace MonoDevelop.DesignerSupport.Toolbox
 		public override void SetFrameSize (CGSize newSize)
 		{
 			base.SetFrameSize (newSize);
-			var frame = messageTextField.Frame;
-			messageTextField.Frame = new CGRect (frame.Location, newSize);
 			RedrawItems (true, false);
 		}
 
