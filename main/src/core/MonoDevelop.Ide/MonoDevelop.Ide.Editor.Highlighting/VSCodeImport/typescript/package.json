@@ -12,7 +12,7 @@
   },
   "enableProposedApi": true,
   "dependencies": {
-    "semver": "4.3.6",
+    "semver": "7.5.2",
     "vscode-extension-telemetry": "^0.0.7",
     "vscode-nls": "^2.0.1"
   },
